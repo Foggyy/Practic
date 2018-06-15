@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace Practic__2
 {
-    //можем перебрать 10000 квадратов (1<=N<=100) (N^2)
-    //Ax+By+C = 0 >0 <0
-    //Если 4 угла в одной плоскости есть пересечение
-    //Если в разных - нет пересечения
-
-
     class Line
     {
         public int a;
@@ -24,7 +12,7 @@ namespace Practic__2
         {
             //Общий вид уравнения прямой: (y1 - y2)x + (x2 - x1)y + (x1y2 - x2y1) = 0
             //Общее уравнение прямой на плоскости: Ax + By + C = 0
-            a = (p2.y - p1.x);
+            a = (p2.y - p1.y);
             b = (p1.x - p2.x);
             c = ((p1.y * p2.x) - (p1.x * p2.y));
 
@@ -32,8 +20,7 @@ namespace Practic__2
 
         public int Result(Point p)
         {
-            int result = a * p.x + b * p.y + c;
-            return result;
+            return (a * p.x) + (b * p.y) + c;
         }
 
     }
@@ -63,15 +50,13 @@ namespace Practic__2
             int N, W, E;
             int count = 0;                                 //кол-во квадратов, имеющих общую точку с прямой       
 
-
             string dataIn = File.ReadAllText("INPUT.txt"); //ввод всего файла в строку
-
             string[] temp = dataIn.Split(' ');              //убираем пробелы
 
             N = int.Parse(temp[0]);
             W = int.Parse(temp[1]);
-            E = int.Parse(temp[2]);    
-                             
+            E = int.Parse(temp[2]);
+
             Line line = new Line(new Point(0, W),new Point(100*N,E));       //прямая в декартовой системе координат, заданная точками (0,W) и (100*N,E)
 
             //Координаты углов квадрата
@@ -100,11 +85,7 @@ namespace Practic__2
                     }
                 }
             }
-
-
-            File.WriteAllText("OUTPUT.txt", count.ToString()); //вывод count с преобразованием в string
-
-            Console.ReadLine();
+            File.WriteAllText("OUTPUT.txt", count.ToString()); //вывод count с преобразованием в string           
         }
     }
 }
