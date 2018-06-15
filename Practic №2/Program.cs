@@ -12,6 +12,36 @@ namespace Practic__2
     //Если 4 угла в одной плоскости есть пересечение
     //Если в разных - есть пересечение
 
+    class Line
+    {
+        public Point x;
+        public Point y;
+
+        public Line(Point x, Point y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+    }
+
+    class Point
+    {
+        public double x;
+        public double y;
+
+        public Point()
+        {
+            x = 0;
+            y = 0;
+        }
+
+        public Point(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
 
     class Program
     {
