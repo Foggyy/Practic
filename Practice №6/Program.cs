@@ -1,60 +1,95 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Practice__6
 {
 
     class Program
     {
-        public static double Recursion(int index, int decreasingIndex)
+        /// <summary>
+        /// Получение элемента последовательности (рекурсия)
+        /// </summary>
+        /// <param name="specIndex"></param>
+        /// <param name="index"></param>
+        /// <param name="sequence"></param>
+        /// <returns></returns>
+        public static double ElementOfSequence(int specIndex, int ElementIndex, List<double> mas)
         {
-            double result=0;
-            if (decreasingIndex > 2 && index - decreasingIndex >= 3)
+            double Element;
+            double ak1, ak2, ak3;
+            if (specIndex - ElementIndex <= 3 && ElementIndex > 2)      //если индекс больше чем индексы первых 3 элементов последовательности
             {
-                result = (double)3 / 2 * Recursion(index, decreasingIndex - 1) - (double)2 / 3 * Recursion(index, decreasingIndex - 2) -
-                         (double)1 / 3 * Recursion(index, decreasingIndex);
+                ak1 = (double)(3/2) * ElementOfSequence(specIndex, ElementIndex - 1, mas);
+                ak2 = (double)(2/3) * ElementOfSequence(specIndex, ElementIndex - 2, mas);
+                ak3 = (double)(1/3) * ElementOfSequence(specIndex, ElementIndex - 3, mas);
+                Element = ak1 - ak2 - ak3;
+                return Element;
             }
-
-            return result;
+            else                                                        //иначе, вернуть элемент последовательности
+                return (double)mas[ElementIndex];
         }
 
         static void Main(string[] args)
         {
+            int N;
+            Console.WriteLine("Введите кол-во элементов последовательности:");
+            while(!int.TryParse(Console.ReadLine(), out N) || N<4)
+                Console.WriteLine("Ошибка ввода. Введите целое число больше 3");
 
-            int M;                                                                  //
-            Console.WriteLine("Введите максимум последовательности:");
-            while (!int.TryParse(Console.ReadLine(), out M) || M < 0)
-                Console.WriteLine("Ошибка ввода, введите целое число больше 0");
+            double M;
+            Console.WriteLine("Введите сколь угодно малое вещественное число(эпсилон):");
+            while(!double.TryParse(Console.ReadLine(), out M) || M<0)
+                Console.WriteLine("Ошибка ввода. Введите целое число больше 0");
 
-            double a1, a2, a3;
-            Console.WriteLine("Введите первый элемент последовательности:");
-            while (!double.TryParse(Console.ReadLine(), out a1) || a1 <= M)
-                Console.WriteLine("Ошибка ввода, введите число больше 0");
+            List<double> mas = new List<double>();                              //список для хранения последовательности
 
-            Console.WriteLine("Введите второй элемент последовательности:");
-            while (!double.TryParse(Console.ReadLine(), out a2) || a2 <= M)
-                Console.WriteLine("Ошибка ввода, введите целое число больше 0");
-
-            Console.WriteLine("Введите третий элемент последовательности:");
-            while (!double.TryParse(Console.ReadLine(), out a3) || a3 <= M)
-                Console.WriteLine("Ошибка ввода, введите целое число больше 0");
-
-            int J = 3;      //final index
-            double сurrent = Recursion(J,J);
-
-            while (Math.Abs(сurrent) > M)
+            Console.WriteLine("Введите 3 первых элемента последовательности:");
+            for (int i = 0; i < 3; i++)
             {
-                J++;
-                сurrent = Recursion(J, J);
+                double Element;
+                while (!double.TryParse(Console.ReadLine(), out Element) || Element <= M)
+                    Console.WriteLine("Ошибка ввода. Введите число больше чем M (эпсилон)");
+                mas.Add(Element);
             }
 
-            Console.WriteLine("Элемент последовательности: "+сurrent);
+            int J = 3;                                                              //номер текущего элемента
+            double LastElement = ElementOfSequence(J, J, mas);
+
+            while (Math.Abs(LastElement) > M)
+            {
+                mas.Add(LastElement);
+                J++;
+                LastElement = ElementOfSequence(J, J, mas);
+            }
+
+            Console.Write("Вывод последовательности:: ");
+            for (int i = 0; i < mas.Count; i++)
+            {
+                Console.Write(mas[i] + " ");
+            }                
+            Console.WriteLine();
+
+
+            if (LastElement == M)
+                Console.WriteLine("Последний элемент последовательности {0} равен M", LastElement);
+            else
+                Console.WriteLine("Последний элемент последовательности {0} не равен M", LastElement);
+
+            if (N > J)
+            {
+                Console.WriteLine("N > J");
+            }
+            if (N == J)
+            {
+                Console.WriteLine("N = J");
+            }
+            if (N < J)
+            {
+                Console.WriteLine("N < J");
+            }
+               
 
             Console.ReadLine();
-        }
+        }        
     }
 }
