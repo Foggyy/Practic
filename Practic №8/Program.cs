@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Practic__8
 {
@@ -93,22 +91,28 @@ namespace Practic__8
 
             for (int i = 0; i < ApexAmount; i++)
             {
-                Console.WriteLine();
                 for (int j = 0; j < ApexAmount; j++)
                 {
                     if (i == j)
                     {
-                        graph[i, j] = 1;
-                        Console.Write(graph[i, j] + " ");
+                        graph[i, j] = 0;
                     }
                     else
                     {
                         graph[i, j] = rand.Next(0, 2);
-                        if (graph[i, j] == 1)
-                            Edges.Add(new Edge(i, j));
-
-                        Console.Write(graph[i,j] + " ");
+                        graph[j, i] = graph[i, j];                       
                     }
+                }
+            }
+
+            for (int i = 0; i < ApexAmount; i++)
+            {
+                Console.WriteLine();
+                for (int j = 0; j < ApexAmount; j++)
+                {
+                    Console.Write(graph[i,j]+" ");
+                    if (graph[i, j] == 1)
+                        Edges.Add(new Edge(i, j));
                 }
             }
 
