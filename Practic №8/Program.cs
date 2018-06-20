@@ -4,41 +4,38 @@ using System.Collections.Generic;
 
 namespace Practic__8
 {
+    /// <summary>
+    /// Класс для ребер графа
+    /// </summary>
+    public class Edge
+    {
+        public int Apex1, Apex2;
+
+        public Edge(int Apex1, int Apex2)
+        {
+            this.Apex1 = Apex1;
+            this.Apex2 = Apex2;
+        }
+    }
 
     class Program
     {
-        
-        /// <summary>
-        /// Класс для ребер графа
-        /// </summary>
-        public class Edge
-        {
-            public int Apex1, Apex2;
-
-            public Edge(int Apex1, int Apex2)
-            {
-                this.Apex1 = Apex1;
-                this.Apex2 = Apex2;
-            }
-        }
-    
+              
         /// <summary>
         /// Поиск цепей
         /// </summary>
         /// <param name="V"></param>
         /// <param name="E"></param>
         /// <param name="chains"></param>
-        static public void chainsSearch(int ApexAmount, List<Edge> E, ref List<string> chains)
+        static public void SearchChains(int ApexAmount, List<Edge> E, ref List<string> chains)
         {
-            int[] color = new int[ApexAmount];
+            int[] colors = new int[ApexAmount];
             for (int i = 0; i < ApexAmount - 1; i++)
             for (int j = i + 1; j < ApexAmount; j++)
             {
                 for (int k = 0; k < ApexAmount; k++)
-                    color[k] = 1;
-                DFSchain(i, j, E, color, (i + 1).ToString(), ref chains);
-                //поскольку в C# нумерация элементов начинается с нуля, то
-                //для удобочитаемости результатов в строку передаем i + 1
+                    colors[k] = 1;                                           //окрашиваем все вершины в белый цвет          
+                DFS(i, j, E, colors, (i + 1).ToString(), ref chains);        //передаем i+1 для нумерации вершин
             }
         }
 
@@ -51,32 +48,30 @@ namespace Practic__8
         /// <param name="color"></param>
         /// <param name="s"></param>
         /// <param name="chains"></param>
-        static public void DFSchain(int u, int endV, List<Edge> E, int[] color, string s, ref List<string> chains)
+        static public void DFS(int i, int j, List<Edge> Edges, int[] colors, string CurrentChain, ref List<string> chains)
         {
-            //вершину не следует перекрашивать, если u == endV (возможно в endV есть несколько путей)
-            if (u != endV)
-                color[u] = 2;
+            
+            if (i != j)                             //если i != j то не дошли до конца цепи
+                colors[i] = 2;                      //2 - черный цвет
             else
             {
-                chains.Add(s);
+                chains.Add(CurrentChain);                      //добавляем цепь если дошли до конца
                 return;
             }
-            for (int w = 0; w < E.Count; w++)
+            for (int vertex = 0; vertex < Edges.Count; vertex++)
             {
-                if (color[E[w].Apex2] == 1 && E[w].Apex1 == u)
+                if (colors[Edges[vertex].Apex2] == 1 && Edges[vertex].Apex1 == i)
                 {
-                    DFSchain(E[w].Apex2, endV, E, color, s + "-" + (E[w].Apex2 + 1),ref chains);
-                    color[E[w].Apex2] = 1;
+                    DFS(Edges[vertex].Apex2, j, Edges, colors, CurrentChain + "-" + (Edges[vertex].Apex2 + 1),ref chains);
+                    colors[Edges[vertex].Apex2] = 1;                            //возвращаем вершине белый цвет для проверки на другие цепи
                 }
-                else if (color[E[w].Apex1] == 1 && E[w].Apex2 == u)
+                else if (colors[Edges[vertex].Apex1] == 1 && Edges[vertex].Apex2 == i)
                 {
-                    DFSchain(E[w].Apex1, endV, E, color, s + "-" + (E[w].Apex1 + 1), ref chains);
-                    color[E[w].Apex1] = 1;
+                    DFS(Edges[vertex].Apex1, j, Edges, colors, CurrentChain + "-" + (Edges[vertex].Apex1 + 1), ref chains);
+                    colors[Edges[vertex].Apex1] = 1;                            //возвращаем вершине белый цвет для проверки на другие цепи
                 }
             }
         }
-
-
 
         static void Main(string[] args)
         {
@@ -116,7 +111,7 @@ namespace Practic__8
                 }
             }
 
-            chainsSearch(ApexAmount, Edges,ref chains);
+            SearchChains(ApexAmount, Edges,ref chains);                 //передаем кол-во вершин, список с ребрами и список для записи цепей
             Console.WriteLine();
             Console.WriteLine("Введите K (кол-во вершин в цепи:)");
             int K;
