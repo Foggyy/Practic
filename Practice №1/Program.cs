@@ -7,24 +7,24 @@ namespace Practice__1
     {
         
 
-        static int[] Addition(int[] a, int[] b, int[] c)
+        static int[] MasCounting(int[] mas1, int[] mas2, int[] mas3)
         {
             int[] x = new int[1000];
-            int currentValue;
+            int CurrentValue;
 
             for (int i = 0; i < x.Length; i++)
             {
-                currentValue = a[i] + b[i] + c[i] + x[i];
-                x[i] = currentValue % 10;
+                CurrentValue = mas1[i] + mas2[i] + mas3[i] + x[i];
+                x[i] = CurrentValue % 10;
 
-                if (currentValue > 9)
-                    x[i + 1] = (currentValue - x[i]) / 10;
+                if (CurrentValue > 9)
+                    x[i + 1] = (CurrentValue - x[i]) / 10;
             }
 
             return x;
         }
 
-        static string Cutting(int[] x)
+        static string GettingAnswer(int[] x)
         {
             string answer = string.Empty;
             string finaly = string.Empty;
@@ -53,24 +53,24 @@ namespace Practice__1
             N = Convert.ToInt16(dataIn);
 
 
-            int[] a = new int[1000];
-            int[] b = new int[1000];
-            int[] c = new int[1000];
-            int[] nextA;
-            int[] nextB;
-            a[0] = 1;
+            int[] mas1 = new int[1000];
+            int[] mas2 = new int[1000];
+            int[] mas3 = new int[1000];
+            int[] NextMas1;
+            int[] NextMas2;
+            mas1[0] = 1;
 
             for (int i = 0; i < N - 1; i++)
             {
-                nextA = Addition(a, c, b);
-                nextB = Addition(a, a, b);
+                NextMas1 = MasCounting(mas1, mas2, mas3);
+                NextMas2 = MasCounting(mas1, mas2, mas3);
 
-                c = a;
-                b = nextB;
-                a = nextA;
+                mas3 = mas1;
+                mas2 = NextMas2;
+                mas1 = NextMas1;
             }
 
-            string str = Cutting(Addition(a, b, c));
+            string str = GettingAnswer(MasCounting(mas1, mas2, mas3));
             File.WriteAllText("OUTPUT.txt", str);       //вывод результата
             Console.WriteLine(str);
 
