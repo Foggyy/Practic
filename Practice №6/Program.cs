@@ -13,15 +13,15 @@ namespace Practice__6
         /// <param name="index"></param>
         /// <param name="sequence"></param>
         /// <returns></returns>
-        public static double ElementOfSequence(int specIndex, int ElementIndex, List<double> mas)
+        public static double ElementOfSequence(int LastIndex, int ElementIndex, List<double> mas)
         {
             double Element;
             double ak1, ak2, ak3;
-            if (specIndex - ElementIndex <= 3 && ElementIndex > 2)      //если индекс больше чем индексы первых 3 элементов последовательности
+            if (LastIndex - ElementIndex <= 3 && ElementIndex > 2)      //если индекс больше чем индексы первых 3 элементов последовательности
             {
-                ak1 = (double)3/2 * ElementOfSequence(specIndex, ElementIndex - 1, mas);
-                ak2 = (double)2/3 * ElementOfSequence(specIndex, ElementIndex - 2, mas);
-                ak3 = (double)1/3 * ElementOfSequence(specIndex, ElementIndex - 3, mas);
+                ak1 = (double)3/2 * ElementOfSequence(LastIndex, ElementIndex - 1, mas);
+                ak2 = (double)2/3 * ElementOfSequence(LastIndex, ElementIndex - 2, mas);
+                ak3 = (double)1/3 * ElementOfSequence(LastIndex, ElementIndex - 3, mas);
                 Element = ak1 - ak2 - ak3;
                 return Element;
             }
