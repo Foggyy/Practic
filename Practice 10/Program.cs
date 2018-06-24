@@ -67,7 +67,7 @@ namespace Practice_10
            {
                 int N;
 
-                Console.WriteLine("Введите длину последовательности (N):");
+                Console.WriteLine("Введите длину массива (N):");
                 while (!int.TryParse(Console.ReadLine(), out N) || N<2)
                     Console.WriteLine("Ошибка ввода, введите целое число больше 1");
                 double[] mas = new double[N];

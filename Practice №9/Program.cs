@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Practice__9
 {
@@ -92,12 +88,12 @@ namespace Practice__9
                 int i = 1;
 
                 Console.WriteLine("Введите номер элемента: ");
-                int pos;
-                while (!int.TryParse(Console.ReadLine(), out pos) || pos < 1)
+                int position;
+                while (!int.TryParse(Console.ReadLine(), out position) || position < 1)
                     Console.WriteLine("Ошибка ввода, введите номер больше 0");
                 try
                 {
-                    while (Element.data != pos)
+                    while (Element.data != position)
                     {
                         if (Element != null)
                         {

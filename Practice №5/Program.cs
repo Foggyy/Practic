@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace Practice__5
 {
@@ -16,12 +17,13 @@ namespace Practice__5
 
             int[,] mas = new int[n,n];                                                  //матрица (двумерный массив)
             int[]b = new int[n];                                                        //последовательность
-            bool ok;
+            bool ok, ok2;
 
             //заполнение матрицы случайными числами
             for (i = 0; i < n; i++)
             {
                 ok = true;                                  //переменная для проверки на возрастание
+                ok2 = true;
                 Console.WriteLine();
 
                 for (j = 0; j < n; j++)
@@ -33,11 +35,15 @@ namespace Practice__5
                         {
                             ok = false;                     
                         }
+                        if (mas[i, j] > mas[i, j - 1])
+                        {
+                            ok2 = false;
+                        }
                     }
                     Console.Write(mas[i, j] + " ");
                 }
 
-                if (ok)                                     //если ok = true (возрастающая последовательность)
+                if (ok || ok2)                                     //если ok = true (возрастающая последовательность)
                 {
                     b[i] = 1;
                 }
@@ -48,6 +54,7 @@ namespace Practice__5
             }
 
             Console.WriteLine();
+            Console.WriteLine("\nПоследовательность:");
             for (i = 0; i < b.Length; i++)                  //цикл для вывода последовательности
             {
                 Console.Write(b[i] + " ");

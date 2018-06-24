@@ -75,12 +75,12 @@ namespace Practic__8
 
         static void Main(string[] args)
         {
-            List<Edge> Edges = new List<Edge>();
-            List<string> chains = new List<string>();
+            List<Edge> Edges = new List<Edge>();                                        //список ребер графа
+            List<string> chains = new List<string>();                                   //список цепей
             int ApexAmount;
             Random rand = new Random();
             Console.WriteLine("Введите количество вершин:");
-            while(!int.TryParse(Console.ReadLine(), out ApexAmount) || ApexAmount < 1)
+            while(!int.TryParse(Console.ReadLine(), out ApexAmount) || ApexAmount < 2)
                 Console.WriteLine("Ошибка ввода. Введите целое число больше 0");
             int[,] graph = new int[ApexAmount, ApexAmount];
 
@@ -116,8 +116,8 @@ namespace Practic__8
             Console.WriteLine("Введите K (кол-во вершин в цепи:)");
             int K;
             bool ok = false;
-            while (!int.TryParse(Console.ReadLine(), out K))
-                Console.WriteLine("Ошибка ввода.");
+            while (!int.TryParse(Console.ReadLine(), out K) || K<1)
+                Console.WriteLine("Ошибка ввода. Введите целое число больше 0");
 
             Console.WriteLine("Цепь с заданным количеством вершин:");
             for (int i = 0; i < chains.Count; i++)
@@ -130,7 +130,7 @@ namespace Practic__8
             }
             if (!ok)
             {
-                Console.WriteLine("Цепей с заданным количеством вершин не найдено");
+                Console.WriteLine("Цепи с заданным количеством вершин не найдено");
             }
             
             Console.ReadLine();

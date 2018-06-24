@@ -19,9 +19,9 @@ namespace Practice__6
             double ak1, ak2, ak3;
             if (specIndex - ElementIndex <= 3 && ElementIndex > 2)      //если индекс больше чем индексы первых 3 элементов последовательности
             {
-                ak1 = (double)(3/2) * ElementOfSequence(specIndex, ElementIndex - 1, mas);
-                ak2 = (double)(2/3) * ElementOfSequence(specIndex, ElementIndex - 2, mas);
-                ak3 = (double)(1/3) * ElementOfSequence(specIndex, ElementIndex - 3, mas);
+                ak1 = (double)3/2 * ElementOfSequence(specIndex, ElementIndex - 1, mas);
+                ak2 = (double)2/3 * ElementOfSequence(specIndex, ElementIndex - 2, mas);
+                ak3 = (double)1/3 * ElementOfSequence(specIndex, ElementIndex - 3, mas);
                 Element = ak1 - ak2 - ak3;
                 return Element;
             }

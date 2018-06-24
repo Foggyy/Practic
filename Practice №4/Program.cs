@@ -27,8 +27,8 @@ namespace Practice__4
             double X;                            //найденный корень
 
             Console.WriteLine("Введите точность вычислений:");
-            while (!double.TryParse(Console.ReadLine(), out eps) || eps<=0)
-                Console.WriteLine("Ошибка ввода, введите точность больше 0");
+            while (!double.TryParse(Console.ReadLine(), out eps) || eps<=0 || eps>2)
+                Console.WriteLine("Ошибка ввода, введите точность больше 0 и не больше 2");
 
             do
             {

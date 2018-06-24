@@ -196,7 +196,7 @@ namespace Practice__12
                     for (int i = 0; i < length; i++)
                     {
                         while (!int.TryParse(Console.ReadLine(), out mas[i]))
-                            Console.WriteLine("Ошибка ввода. Введите число");
+                            Console.WriteLine("Ошибка ввода. Введите целое число");
                         SupMas[i] = mas[i];
                     }
                                                                    
@@ -214,8 +214,7 @@ namespace Practice__12
 
         static void Main(string[] args)
         {
-           Menu();
-            
+            Menu();
             Console.ReadLine();
         }
     }
